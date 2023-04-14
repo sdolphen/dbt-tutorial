@@ -1,0 +1,7 @@
+slprofile:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      user: stijndlphn
+      password: Keberuntungan4!
