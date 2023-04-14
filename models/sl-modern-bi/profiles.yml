@@ -1,9 +1,7 @@
-version: 2
-
 slprofile:
   target: dev
   outputs:
     dev:
       type: snowflake
-      user: stijndlphn
+      user: Stijndlphn
       password: Keberuntungan4!
