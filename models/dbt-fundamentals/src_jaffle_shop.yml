@@ -6,8 +6,10 @@ sources:
     schema: jaffle_shop  
     tables:
       - name: orders
+        description: one order per person that buys something smh
         columns:
           - name: order_id
+            description: one order_id per person smh
             tests:
               - unique
               - not_null
