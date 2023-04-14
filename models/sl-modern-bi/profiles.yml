@@ -1,11 +1,17 @@
 version: 2
 
 slprofile:
-  target: dev
+  target: prod
   outputs:
-    dev:
+    prod:
       type: snowflake
-      user: "Stijndlphn"
-      password: "Keberuntungan4!"
-      dbname: "PC_DBT_DB"
-      schema: "PC_DBT_SCHEMA"
+      account: fc65562
+      user: Stijndlphn
+      password: Keberuntungan4!
+      database: PC_DBT_DB
+      schema: PC_DBT_SCHEMA
+      role: accountadmin
+      warehouse: PC_DBT_WH
+      threads: 1
+      client_session_keep_alive: False
+      query_tag: sd
