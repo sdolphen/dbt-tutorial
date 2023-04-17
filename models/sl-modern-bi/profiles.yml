@@ -1,3 +1,5 @@
+version: 2
+
 my-snowflake-db:
   target: dev
   outputs:
