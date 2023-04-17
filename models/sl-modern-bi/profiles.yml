@@ -5,7 +5,7 @@ my-snowflake-db:
   outputs:
     dev:
       type: snowflake
-      account: https://ngmltoh-rf00795.snowflakecomputing.com
+      account: ngmltoh-rf00795
     
       # User/password auth
       user: stijndlphn
