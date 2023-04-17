@@ -1,17 +1,25 @@
-version: 2
-
-slprofile:
-  target: prod
+my-snowflake-db:
+  target: dev
   outputs:
-    prod:
+    dev:
       type: snowflake
-      account: fc65562
-      user: Stijndlphn
+      account: fc65562.west-europe.azure
+    
+      # User/password auth
+      user: stijndlphn
       password: Keberuntungan4!
-      database: PC_DBT_DB
-      schema: PC_DBT_SCHEMA
+
       role: accountadmin
+      database: PC_DBT_DB
       warehouse: PC_DBT_WH
+      schema: PC_DBT_SCHEMA
       threads: 1
       client_session_keep_alive: False
       query_tag: sd
+
+      # optional
+      connect_retries: 0 # default 0
+      connect_timeout: 10 # default: 10
+      retry_on_database_errors: False # default: false
+      retry_all: False  # default: false
+      reuse_connections: False # default: false (available v1.4+)
