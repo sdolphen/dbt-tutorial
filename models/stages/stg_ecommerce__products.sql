@@ -15,10 +15,20 @@ review_content VARCHAR,
 img_link VARCHAR,
 product_link VARCHAR*/
 
-select
-    product_id as product_id,
-    product_name as product_name,
-    category as product_category
-    
-from ecommerce
+with
 
+source as (
+
+    select * from {{ source('DBT_SC','ecommerce') }}
+
+),
+
+products as(
+    select
+        product_id as product_id,
+        product_name as product_name,
+        category as product_category
+        
+    from source
+)
+select * from products
