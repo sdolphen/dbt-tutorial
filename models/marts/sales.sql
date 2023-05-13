@@ -1,9 +1,9 @@
 with 
 
-sales as  (
+salesbikes as(
 
     select * from {{ ref('stg_bikes__sales' )}}
 
 )
 
-select * from sales
+select * from salesbikes
