@@ -1,0 +1,13 @@
+version: 2
+
+metrics:
+  - name: total_revenue_fake
+    label: Total_revenue_fake
+    model: ref('sales')
+    description: "The amount of revenue_fake"
+
+    calculation_method: sum
+    expression: revenue
+
+    dimensions:
+      - product_category
