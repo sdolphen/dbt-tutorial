@@ -29,7 +29,8 @@ reviews as(
         actual_price as price,
         discount_percentage as discount,
         rating,
-        rating_count
+        rating_count,
+        review_id
     from source
 )  
 select * from reviews
