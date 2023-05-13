@@ -6,3 +6,5 @@ sources:
     schema: DBT_SC  
     tables:
       - name: ecommerce
+      - name: bikestable
+      

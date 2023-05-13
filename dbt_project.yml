@@ -37,9 +37,4 @@ models:
   dbt_semantic_hex:
     stages:
       +materialized: view
-    marts:
-      +materialized: view
-      finance:
-        +schema: finance
-      marketing:
-        +schema: marketing
+    
