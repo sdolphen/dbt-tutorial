@@ -1,0 +1,16 @@
+version: 2
+
+metrics:
+  - name: total_revenue
+    label: Total_revenue
+    model: ref('sales')
+    description: "The amount of revenue"
+
+    calculation_method: sum
+    expression: revenue
+
+    timestamp: date
+    time_grains: [day, month, year]
+
+    dimensions:
+      - product_category
