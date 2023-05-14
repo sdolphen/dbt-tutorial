@@ -1,0 +1,16 @@
+version: 2
+
+metrics:
+  - name: total_profit
+    label: Total_profit
+    model: ref('sales')
+    description: "The amount of profit without taxes taken into account"
+
+    calculation_method: derived
+    expression: "{{ metric('total_revenue') }} - {{ metric('total_cost') }} "
+
+    timestamp: date
+    time_grains: [day, month, year]
+
+    dimensions:
+      - product_category
