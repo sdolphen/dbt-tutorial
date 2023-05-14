@@ -3,7 +3,6 @@ version: 2
 metrics:
   - name: total_profit
     label: Total_profit
-    model: ref('sales')
     description: "The amount of profit without taxes taken into account"
 
     calculation_method: derived
