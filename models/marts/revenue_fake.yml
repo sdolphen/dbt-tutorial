@@ -6,7 +6,7 @@ metrics:
     model: ref('sales')
     description: "The amount of revenue_fake"
 
-    calculation_method: sum
+    calculation_method: count_distinct
     expression: revenue
 
     dimensions:
