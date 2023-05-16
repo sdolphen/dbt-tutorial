@@ -2,9 +2,9 @@ version: 2
 
 metrics:
   - name: total_revenue
-    label: Total_revenue
+    label: Total revenue
     model: ref('sales')
-    description: "The amount of revenue without VAT"
+    description: "The amount of revenue made with goods sold, without VAT"
 
     calculation_method: sum
     expression: revenue
@@ -14,3 +14,6 @@ metrics:
 
     dimensions:
       - product_category
+      - sub_category
+      - state
+      - country
