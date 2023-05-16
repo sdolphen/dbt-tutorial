@@ -4,7 +4,7 @@ metrics:
   - name: total_revenue
     label: Total_revenue
     model: ref('sales')
-    description: "The amount of revenue"
+    description: "The amount of revenue without VAT"
 
     calculation_method: sum
     expression: revenue
