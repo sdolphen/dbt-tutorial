@@ -1,0 +1,48 @@
+semantic_models:
+  - name: fct_jaffleshop
+    defaults:
+      agg_time_dimension: OrderTimestamp
+    model: ref('fct_jaffleshop')
+    entities:
+      - name: id
+        type: primary
+      - name: customer
+        type: foreign
+        expr: CustomerId
+      - name: order
+        type: foreign
+        expr: OrderId
+      - name: payement
+        type: foreign
+        expr: PayementId
+
+    dimensions:
+      - name: order_time
+        expr: OrderTimestamp
+        type: time
+        type_params:
+          time_granularity: day
+      - name: payement_status
+        expr: PaymentStatus
+        type: categorical
+      - name: is_exepensive
+        type: categorical
+        expr: case when Amount > 5 then true else false end
+
+    measures:
+      - name: order_total
+        description: The total amount for each order.
+        agg: sum
+        expr: Amount
+      - name: customers_with_orders
+        description: Distinct count of customers placing orders.
+        agg: count_distinct
+        expr: CustomerId
+
+metrics:
+  - name: order_total
+    description: Sum of total order amount.
+    type: simple
+    label: Order Total
+    type_params:
+      measure: order_total
