@@ -1,11 +1,10 @@
 version: 2
 
 sources:
-  - name: dbt_learn
-    database: dbt_cert_server  
-    schema: dbt_sdolphen  
+  - name: dbt_semantic_layer
+    database: raw  
+    schema: jaffle_shop  
     tables:
       - name: customers
       - name: orders
       - name: payments
-      

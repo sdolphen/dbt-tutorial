@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from {{ source('dbt_learn', 'orders') }}
+    select * from {{ source('dbt_semantic_layer', 'customers') }}
 
 ),
 
@@ -10,9 +10,8 @@ renamed as (
 
     select
         id,
-        user_id,
-        order_id,
-        status
+        first_name,
+        last_name
 
     from source
 
