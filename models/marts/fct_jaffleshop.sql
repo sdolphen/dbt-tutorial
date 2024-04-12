@@ -14,10 +14,15 @@ Payments AS (
 
 Final AS (
     select
+        {{ dbt_utils.generate_surrogate_key(['Customers.id', 'Orders.id', 'Payments.id']) }} as id,
+        Customers.id as CustomerId,
         Customers.first_name AS FirstName,
         Customers.last_name AS LastName,
+        Orders.id as OrderId,
         Orders.order_date AS OrderDate,
+        Orders.order_timestamp as OrderTimestamp,
         Orders.status AS Status,
+        Payments.id as PayementId,
         Payments.paymentmethod AS PaymentMethod,
         Payments.status AS PaymentStatus,
         Payments.amount AS Amount,
