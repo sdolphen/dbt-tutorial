@@ -20,7 +20,6 @@ Final AS (
         Customers.last_name AS LastName,
         Orders.id as OrderId,
         Orders.order_date AS OrderDate,
-        Orders.order_timestamp as OrderTimestamp,
         Orders.status AS Status,
         Payments.id as PayementId,
         Payments.paymentmethod AS PaymentMethod,

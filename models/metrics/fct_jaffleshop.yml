@@ -1,7 +1,7 @@
 semantic_models:
   - name: fct_jaffleshop
     defaults:
-      agg_time_dimension: OrderTimestamp
+      agg_time_dimension: order_time
     model: ref('fct_jaffleshop')
     entities:
       - name: id
@@ -18,7 +18,7 @@ semantic_models:
 
     dimensions:
       - name: order_time
-        expr: OrderTimestamp
+        expr: OrderDate
         type: time
         type_params:
           time_granularity: day
