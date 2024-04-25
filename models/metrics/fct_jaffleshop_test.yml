@@ -1,48 +1,49 @@
 semantic_models:
   - name: fct_jaffleshop_test
     defaults:
-      agg_time_dimension: order_time
+      agg_time_dimension: order_time_test
     model: ref('fct_jaffleshop')
     entities:
-      - name: id
+      - name: id_test
         type: primary
-      - name: customer
+        expr: sk_id
+      - name: customer_test
         type: foreign
         expr: customer_id
-      - name: order
+      - name: order_test
         type: foreign
         expr: order_id
-      - name: payement
+      - name: payement_test
         type: foreign
         expr: payment_id
 
     dimensions:
-      - name: order_time
+      - name: order_time_test
         expr: order_date
         type: time
         type_params:
           time_granularity: day
-      - name: payement_status
+      - name: payement_status_test
         expr: payment_status
         type: categorical
-      - name: is_expensive
+      - name: is_expensive_test
         type: categorical
         expr: case when amount > 5 then true else false end
 
     measures:
-      - name: order_total
+      - name: order_total_test
         description: The total amount for each order.
         agg: sum
         expr: amount
-      - name: customers_with_orders
+      - name: customers_with_orders_test
         description: Distinct count of customers placing orders.
         agg: count_distinct
         expr: customer_id
 
 metrics:
-  - name: order_total
+  - name: order_total_test
     description: Sum of total order amount.
     type: simple
     label: Order Total
     type_params:
-      measure: order_total
+      measure: order_total_test

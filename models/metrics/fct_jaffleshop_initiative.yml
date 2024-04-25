@@ -1,0 +1,34 @@
+## Create the semantic models and metrics needed for the initiative as described in https://www.notion.so/dataroots/Metrics-dae9c72b57544bc8ba85ae83efaa9a24
+semantic_models:
+  - name: fct_jaffleshop_initiative
+    description: Model containing our jaffle shop data and metrics.
+    defaults:
+      agg_time_dimension: order_time
+    model: ref('fct_jaffleshop')
+    entities:
+      - name: id
+        type: primary
+        expr: sk_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+
+    dimensions:
+      - name: order_time
+        expr: order_date
+        type: time
+        type_params:
+          time_granularity: day
+
+    measures:
+      - name: average_amount
+        description: The average amount
+        agg: average
+
+metrics:
+  - name: average_amount_per_customer
+    description: Metrics /#3 - Average amount paid per customer.
+    label: Average_spending
+    type: simple
+    type_params:
+      measure: average_amount
