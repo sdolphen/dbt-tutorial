@@ -1,37 +1,37 @@
 WITH 
 
-Customers AS (
+customers AS (
     select * from {{ ref('stg_dbt_learn__customers') }}
 ),
 
-Orders AS (
+orders AS (
     select * from {{ ref('stg_dbt_learn__orders') }}
 ),
 
-Payments AS (
+payments AS (
     select * from {{ ref('stg_dbt_learn__payments') }}
 ),
 
-Final AS (
+final AS (
     select
-        {{ dbt_utils.generate_surrogate_key(['Customers.id', 'Orders.id', 'Payments.id']) }} as id,
-        Customers.id as CustomerId,
-        Customers.first_name AS FirstName,
-        Customers.last_name AS LastName,
-        Orders.id as OrderId,
-        Orders.order_date AS OrderDate,
-        Orders.status AS Status,
-        Payments.id as PayementId,
-        Payments.paymentmethod AS PaymentMethod,
-        Payments.status AS PaymentStatus,
-        Payments.amount AS Amount,
-        Payments.created AS Created
+        {{ dbt_utils.generate_surrogate_key(['customers.id', 'orders.id', 'payments.id']) }} as sk_id,
+        customers.id as customer_id,
+        customers.first_name,
+        customers.last_name,
+        orders.id as order_id,
+        orders.order_date,
+        orders.status as order_status,
+        payments.id as payment_id,
+        payments.payment_method,
+        payments.status as payment_status,
+        payments.amount as amount,
+        payments.created as payment_created_at
     from
-        Orders
-        INNER JOIN Customers
-        ON Orders.user_id = Customers.id
-        INNER JOIN Payments
-        ON Payments.orderid = Orders.id
+        orders
+        inner join customers
+        on orders.user_id = customers.id
+        inner join payments
+        on payments.order_id = orders.id
 )
 
 select * from final
