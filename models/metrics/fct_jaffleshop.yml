@@ -1,6 +1,6 @@
 ## Creates the semantic models and metrics needed for the initiative as described in https://www.notion.so/dataroots/Metrics-dae9c72b57544bc8ba85ae83efaa9a24
 semantic_models:
-  - name: fct_jaffleshop_initiative
+  - name: fct_jaffleshop
     description: Model containing our jaffle shop data and metrics.
     model: ref('fct_jaffleshop')
     entities:
