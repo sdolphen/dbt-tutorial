@@ -4,6 +4,7 @@ sources:
   - name: dbt_semantic_layer
     database: raw  
     schema: jaffle_shop_big 
+    description: Origin - https://github.com/dbt-labs/jaffle-shop/tree/main
     tables:
       - name: raw_customers
         description: One record per person who has purchased one or more items
