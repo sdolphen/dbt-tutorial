@@ -29,3 +29,25 @@ models:
         data_tests:
           - accepted_values:
               values: ["new", "returning"]
+
+semantic_models:
+  - name: customers
+    description: Customer grain marts
+    model: ref('customers')
+    defaults:
+      agg_time_dimension: first_ordered_at
+    entities:
+      - name: customer
+        expr: customer_id
+        type: primary
+    dimensions:
+      - name: first_ordered_at
+        type: time
+        type_params:
+          time_granularity: day
+    measures:
+      - name: average_lifetime_spend
+        description: The average lifetime spend
+        expr: lifetime_spend
+        agg: average
+        create_metric: True
