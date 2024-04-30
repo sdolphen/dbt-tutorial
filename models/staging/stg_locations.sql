@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from {{ source('dbt_semantic_layer', 'raw_stores') }}
+    select * from {{ source('snowflake', 'raw_stores') }}
 
 ),
 

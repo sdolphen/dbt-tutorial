@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: dbt_semantic_layer
+  - name: snowflake
     database: raw  
     schema: jaffle_shop_big 
     description: Origin - https://github.com/dbt-labs/jaffle-shop/tree/main
