@@ -45,9 +45,31 @@ semantic_models:
         type: time
         type_params:
           time_granularity: day
+      - name: is_repeat_buyer
+        type: categorical
+        expr: CASE WHEN customer_type = 'returning' THEN True ELSE False END
     measures:
       - name: average_lifetime_spend
         description: The average lifetime spend
         expr: lifetime_spend
         agg: average
         create_metric: True
+      - name: number_of_customers
+        description: The number of customers
+        expr: customer_id
+        agg: count_distinct
+        create_metric: True
+metrics:
+  - name: percentage_of_repeat_buyer
+    description: The percentage of customers making more than one purchase
+    type: derived
+    label: Percentage of repeat buyer
+    type_params:
+      expr: (number_of_repeat_buyers/number_of_customers)*100
+      metrics:
+        - name: number_of_customers
+        - name: number_of_customers
+          filter: |
+            {{Dimension('customer__is_repeat_buyer')}}
+          alias: number_of_repeat_buyers
+      
