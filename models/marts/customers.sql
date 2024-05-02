@@ -23,7 +23,8 @@ customer_orders_summary as (
         max(orders.ordered_at) as last_ordered_at,
         sum(orders.subtotal) as lifetime_spend_pretax,
         sum(orders.tax_paid) as lifetime_tax_paid,
-        sum(orders.order_total) as lifetime_spend
+        sum(orders.order_total) as lifetime_spend,
+        count(orders.order_id) as count_orders,
 
     from orders
 
@@ -42,6 +43,7 @@ joined as (
         customer_orders_summary.lifetime_spend_pretax,
         customer_orders_summary.lifetime_tax_paid,
         customer_orders_summary.lifetime_spend,
+        customer_orders_summary.count_orders,
 
         case
             when customer_orders_summary.is_repeat_buyer then 'returning'

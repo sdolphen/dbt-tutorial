@@ -24,6 +24,8 @@ models:
         description: The sum of all the tax portion of every order a customer has placed.
       - name: lifetime_spend
         description: The sum of all the order totals (including tax) that a customer has ever placed.
+      - name: count_orders
+        description: The total count of orders that a customer has ever placed.
       - name: customer_type
         description: Options are 'new' or 'returning', indicating if a customer has ordered more than once or has only placed their first order to date.
         data_tests:
@@ -59,6 +61,11 @@ semantic_models:
         expr: customer_id
         agg: count_distinct
         create_metric: True
+      - name: most_orders
+        description: The highest number of orders placed by a customer
+        expr: count_orders
+        agg: max
+        create_metric: True
 metrics:
   - name: percentage_of_repeat_buyer
     description: The percentage of customers making more than one purchase
@@ -72,4 +79,3 @@ metrics:
           filter: |
             {{Dimension('customer__is_repeat_buyer')}}
           alias: number_of_repeat_buyers
-      
