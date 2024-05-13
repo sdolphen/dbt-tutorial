@@ -1,0 +1,91 @@
+semantic_models:
+  # customers --- 
+  - name: customers
+    description: Customer grain marts
+    model: ref('customers')
+    defaults:
+      agg_time_dimension: first_ordered_at
+    entities:
+      - name: customer
+        expr: customer_id
+        type: primary
+    dimensions:
+      - name: first_ordered_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: is_repeat_buyer
+        type: categorical
+        expr: CASE WHEN customer_type = 'returning' THEN True ELSE False END
+    measures:
+      - name: average_lifetime_spend
+        description: The average lifetime spend
+        expr: lifetime_spend
+        agg: average
+        create_metric: True
+      - name: number_of_customers
+        description: The number of customers
+        expr: customer_id
+        agg: count_distinct
+        create_metric: True
+      - name: most_orders
+        description: The highest number of orders placed by a customer
+        expr: count_orders
+        agg: max
+        create_metric: True
+  # orders ---
+  - name: orders
+    description: Order grain marts
+    model: ref('orders')
+    defaults:
+      agg_time_dimension: ordered_at
+    entities:
+      - name: order
+        expr: order_id
+        type: primary
+      - name: location
+        expr: location_id
+        type: foreign
+      - name: customer
+        expr: customer_id
+        type: foreign
+    dimensions:
+      - name: ordered_at
+        type: time
+        type_params:
+          time_granularity: day
+      - name: is_large_order
+        type: categorical
+        expr: CASE WHEN count_order_items > 10 THEN True ELSE False END
+    measures:
+      - name: revenue
+        description: Total revenue
+        expr: order_total
+        agg: sum
+        create_metric: True
+
+metrics:
+  - name: percentage_of_repeat_buyer
+    description: The percentage of customers making more than one purchase
+    type: derived
+    label: Percentage of repeat buyer
+    type_params:
+      expr: (number_of_repeat_buyers/number_of_customers)*100
+      metrics:
+        - name: number_of_customers
+        - name: number_of_customers
+          filter: |
+            {{Dimension('customer__is_repeat_buyer')}}
+          alias: number_of_repeat_buyers
+  - name: revenue_growth_mom
+    description: Percentage growth of revenue compared to 1 month ago. With tax
+    type: derived
+    label: Revenue Growth % M/M
+    type_params:
+      expr: (current_revenue - revenue_prev_month) * 100 / revenue_prev_month
+      metrics:
+        - name: revenue
+          alias: current_revenue
+        - name: revenue
+          offset_window: 1 month
+          alias: revenue_prev_month

@@ -43,4 +43,6 @@ models:
   dbt_learn_sdolphen:
     staging:
       +materialized: view
+    marts:
+      +materialized: table
     
