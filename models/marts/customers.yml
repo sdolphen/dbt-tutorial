@@ -66,6 +66,17 @@ semantic_models:
         expr: count_orders
         agg: max
         create_metric: True
+      - name: total_lifetime_spend
+        description: The total amount spent by all customers
+        expr: lifetime_spend
+        agg: sum
+        create_metric: True
+      - name: total_orders
+        description: The total number of orders placed by all customers
+        expr: count_orders
+        agg: sum
+        create_metric: True
+      
 metrics:
   - name: percentage_of_repeat_buyer
     description: The percentage of customers making more than one purchase
@@ -79,3 +90,31 @@ metrics:
           filter: |
             {{Dimension('customer__is_repeat_buyer')}}
           alias: number_of_repeat_buyers
+  - name: average_order_value
+    description: The average value of an order
+    type: derived
+    label: Average Order Value
+    type_params:
+      expr: total_lifetime_spend / total_orders
+      metrics:
+        - name: total_lifetime_spend
+        - name: total_orders
+  - name: customer_retention_rate
+    description: Percentage of returning customers
+    type: derived
+    label: Customer Retention Rate
+    type_params:
+      expr: (number_of_customers - number_of_new_customers) / number_of_customers * 100
+      metrics:
+        - name: number_of_customers
+        - name: number_of_customers
+          filter: |
+            {{ Dimension('customer__is_new_buyer') }}
+          alias: number_of_new_customers
+  - name: cumulative_orders
+    description: Cumulative number of orders
+    type: cumulative
+    label: Cumulative Orders
+    type_params:
+      expr: cumulative_orders
+      time_dimension: first_ordered_at
