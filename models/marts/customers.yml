@@ -111,10 +111,3 @@ metrics:
           filter: |
             {{ Dimension('customer__is_new_buyer') }}
           alias: number_of_new_customers
-  - name: cumulative_orders
-    description: Cumulative number of orders
-    type: cumulative
-    label: Cumulative Orders
-    type_params:
-      expr: cumulative_orders
-      time_dimension: first_ordered_at
